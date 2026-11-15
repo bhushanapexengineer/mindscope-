@@ -1,0 +1,13 @@
+# Render Blueprint — one-click deploy
+# After pushing this repo to GitHub, go to https://render.com → New → Blueprint
+# and point it at your repository. Render reads this file and creates the service.
+services:
+  - type: web
+    name: mindscope
+    runtime: python
+    region: oregon          # change to your nearest region if needed
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /docs
+    autoDeploy: true

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindScope · Mental Health Score Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+</head>
+<body>
+  <!-- Animated background blobs -->
+  <div class="bg-decor" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <main class="container">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="brand">
+        <span class="brand-mark">🧠</span>
+        <span class="brand-name">MindScope</span>
+      </div>
+      <h1 class="hero-title">Mental Health Score Predictor</h1>
+      <p class="hero-sub">
+        A machine‑learning model that estimates a student's mental health score
+        from their social‑media habits, lifestyle, and stress levels.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Random Forest Regressor</span>
+        <span class="tag">FastAPI backend</span>
+        <span class="tag">5,000+ student samples</span>
+      </div>
+    </header>
+
+    <!-- FORM CARD -->
+    <section class="card form-card" id="formCard">
+      <form id="predictForm" novalidate>
+        <!-- Group 1: About You -->
+        <div class="group">
+          <div class="group-head">
+            <span class="group-num">1</span>
+            <h2>About You</h2>
+          </div>
+          <div class="grid">
+            <div class="field">
+              <label for="age">Age</label>
+              <input type="number" id="age" name="age" min="10" max="100" value="20" required />
+              <span class="hint">10 – 100</span>
+            </div>
+
+            <div class="field">
+              <label for="gender">Gender</label>
+              <div class="seg" data-name="gender">
+                <button type="button" class="seg-btn active" data-val="Male">Male</button>
+                <button type="button" class="seg-btn" data-val="Female">Female</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="country">Country</label>
+              <select id="country" name="country" required>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="UK">UK</option>
+                <option value="Germany">Germany</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Turkey">Turkey</option>
+                <option value="France">France</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="academic_level">Academic Level</label>
+              <select id="academic_level" name="academic_level" required>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Graduate">Graduate</option>
+                <option value="High School">High School</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Group 2: Social Media -->
+        <div class="group">
+          <div class="group-head">
+            <span class="group-num">2</span>
+            <h2>Social Media Habits</h2>
+          </div>
+          <div class="grid">
+            <div class="field">
+              <label for="most_used_platform">Most Used Platform</label>
+              <select id="most_used_platform" name="most_used_platform" required>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="TikTok">TikTok</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Snapchat">Snapchat</option>
+                <option value="Twitter">Twitter</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="WeChat">WeChat</option>
+                <option value="LINE">LINE</option>
+                <option value="KakaoTalk">KakaoTalk</option>
+                <option value="VKontakte">VKontakte</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="purpose_of_use">Purpose of Use</label>
+              <select id="purpose_of_use" name="purpose_of_use" required>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Education">Education</option>
+                <option value="Networking">Networking</option>
+                <option value="News">News</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="avg_daily_usage_hours">
+                Avg Daily Usage Hours <span class="val" id="avg_daily_usage_hours_val">4.5</span>
+              </label>
+              <input type="range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" value="4.5" />
+            </div>
+
+            <div class="field full">
+              <label for="daily_unlocks">Daily Unlocks <span class="val" id="daily_unlocks_val">80</span></label>
+              <input type="range" id="daily_unlocks" name="daily_unlocks" min="0" max="300" step="1" value="80" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Group 3: Lifestyle -->
+        <div class="group">
+          <div class="group-head">
+            <span class="group-num">3</span>
+            <h2>Lifestyle &amp; Wellbeing</h2>
+          </div>
+          <div class="grid">
+            <div class="field full">
+              <label for="study_hours">Study Hours / day <span class="val" id="study_hours_val">3.0</span></label>
+              <input type="range" id="study_hours" name="study_hours" min="0" max="24" step="0.1" value="3" />
+            </div>
+
+            <div class="field full">
+              <label for="physical_activity_hours">Physical Activity Hours / day <span class="val" id="physical_activity_hours_val">1.0</span></label>
+              <input type="range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" value="1" />
+            </div>
+
+            <div class="field full">
+              <label for="sleep_hours_per_night">Sleep Hours / night <span class="val" id="sleep_hours_per_night_val">6.5</span></label>
+              <input type="range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" value="6.5" />
+            </div>
+
+            <div class="field full">
+              <label for="stress_level">Stress Level</label>
+              <div class="seg stress-seg" data-name="stress_level">
+                <button type="button" class="seg-btn" data-val="Low">Low</button>
+                <button type="button" class="seg-btn active" data-val="Medium">Medium</button>
+                <button type="button" class="seg-btn" data-val="High">High</button>
+                <button type="button" class="seg-btn" data-val="Very High">Very High</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="actions">
+          <button type="submit" class="btn-predict" id="predictBtn">
+            <span class="btn-text">Predict My Score</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="btn-reset" id="resetBtn">Reset</button>
+        </div>
+        <p class="form-note" id="formNote" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- RESULT CARD -->
+    <section class="card result-card" id="resultCard" hidden>
+      <div class="result-inner">
+        <div class="gauge-wrap">
+          <svg class="gauge" viewBox="0 0 200 200">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#22d3ee" />
+                <stop offset="50%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#c084fc" />
+              </linearGradient>
+            </defs>
+            <circle class="gauge-track" cx="100" cy="100" r="85" />
+            <circle class="gauge-fill" id="gaugeFill" cx="100" cy="100" r="85" />
+          </svg>
+          <div class="gauge-center">
+            <span class="score-num" id="scoreNum">—</span>
+            <span class="score-unit">/ 10</span>
+          </div>
+        </div>
+        <div class="result-meta">
+          <span class="result-label" id="resultLabel">Predicted Mental Health Score</span>
+          <span class="result-status" id="resultStatus">—</span>
+          <p class="result-desc" id="resultDesc"></p>
+          <div class="result-factors" id="resultFactors"></div>
+        </div>
+      </div>
+      <button type="button" class="btn-again" id="againBtn">⟲ Predict Again</button>
+    </section>
+
+    <footer class="footer">
+      <p>Built with FastAPI + scikit‑learn · MindScope © 2026</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
