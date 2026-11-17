@@ -1,9 +1,13 @@
 /* ===== MindScope · frontend logic ===== */
-// When opened as a local file (file://), talk to the dev server.
-// When served by FastAPI (locally or on Render), use a same-origin relative URL.
-const API_URL = window.location.protocol === 'file:'
-  ? 'http://127.0.0.1:8000/predict'
-  : '/predict';
+// Backend API endpoint — the model is deployed on Render.
+// When running the local FastAPI dev server the frontend is served on the same
+// origin (http://127.0.0.1:8000), so a relative '/predict' is used.
+// Everywhere else (opened as a file, hosted on GitHub Pages, etc.) it calls the
+// deployed Render backend directly.
+const RENDER_API = "https://mindscope-qs6k.onrender.com/predict";
+const API_URL = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
+  ? "/predict"
+  : RENDER_API;
 
 const form      = document.getElementById("predictForm");
 const note      = document.getElementById("formNote");
