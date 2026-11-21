@@ -18,6 +18,8 @@ Beyond the social value, the repo is a complete, deployable example of an end-to
   <img src="https://img.shields.io/badge/License-MIT-blue" />
 </p>
 
+> **Live demo:** https://mindscope-qs6k.onrender.com/  ·  **Source:** https://github.com/bhushanapexengineer/mindscope
+
 ---
 
 ## Table of contents
